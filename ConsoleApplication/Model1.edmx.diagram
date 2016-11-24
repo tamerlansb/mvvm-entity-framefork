@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="7c1721acbdb64624b11a461656ef1a7b" Name="Diagram1" >
+        <EntityTypeShape EntityType="TrainingDatabaseModel.FirstTable" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="TrainingDatabaseModel.sysdiagrams" Width="1.5" PointX="2.75" PointY="0.75" />
+        <AssociationConnector Association="TrainingDatabaseModel.FK_FirstTable_FirstTable1" ManuallyRouted="true" >
+          <ConnectorPoint PointX="1.2819230769230767" PointY="3.8840950520833331" />
+          <ConnectorPoint PointX="1.2819230769230767" PointY="79.525458113945987" />
+          <ConnectorPoint PointX="0.62567307692307683" PointY="79.525458113945987" />
+          <ConnectorPoint PointX="0.45900641025641015" PointY="79.525458113945987" />
+          <ConnectorPoint PointX="0.22983974358974413" PointY="79.525458113945987" />
+          <ConnectorPoint PointX="0.22983974358974413" PointY="80.088122697279331" />
+          <ConnectorPoint PointX="0.54233974358974346" PointY="80.088122697279331" />
+          <ConnectorPoint PointX="0.54233974358974346" PointY="75.637706030612648" />
+          <ConnectorPoint PointX="1.1985897435897435" PointY="75.637706030612648" />
+          <ConnectorPoint PointX="1.36525641025641" PointY="75.637706030612648" />
+          <ConnectorPoint PointX="1.645128205128205" PointY="75.637706030612648" />
+          <ConnectorPoint PointX="1.8117948717948715" PointY="75.637706030612648" />
+          <ConnectorPoint PointX="1.9367948717948726" PointY="75.637706030612648" />
+          <ConnectorPoint PointX="1.9367948717948726" PointY="79.42593519727933" />
+          <ConnectorPoint PointX="1.7284615384615383" PointY="79.42593519727933" />
+          <ConnectorPoint PointX="1.7284615384615383" PointY="3.8840950520833331" />
+        </AssociationConnector>
+        <AssociationConnector Association="TrainingDatabaseModel.FK_FirstTable_FirstTable2" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

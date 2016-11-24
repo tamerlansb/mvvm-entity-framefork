@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="PersonModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="PersonEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Table" EntityType="PersonModel.Table" />
+    <AssociationSet Name="TableTable" Association="PersonModel.TableTable">
+      <End Role="Table" EntitySet="Table" />
+      <End Role="Table1" EntitySet="Table" />
+    </AssociationSet>
+    <AssociationSet Name="Table12" Association="PersonModel.Table12">
+      <End Role="Table" EntitySet="Table" />
+      <End Role="Table1" EntitySet="Table" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Table">
+    <Key>
+      <PropertyRef Name="PersonID" />
+    </Key>
+    <Property Name="PersonID" Type="Int32" Nullable="false" />
+    <Property Name="LastName" Type="String" Nullable="false" MaxLength="25" FixedLength="true" Unicode="true" />
+    <Property Name="DateOfBirth" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Height" Type="Int32" Nullable="false" />
+    <Property Name="NextID" Type="Int32" />
+    <Property Name="PrevID" Type="Int32" />
+    <Property Name="IsHead" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Table3" Relationship="PersonModel.TableTable" FromRole="Table" ToRole="Table1" />
+    <NavigationProperty Name="Table4" Relationship="PersonModel.TableTable" FromRole="Table1" ToRole="Table" />
+    <NavigationProperty Name="Table1" Relationship="PersonModel.Table12" FromRole="Table" ToRole="Table1" />
+    <NavigationProperty Name="Table2" Relationship="PersonModel.Table12" FromRole="Table1" ToRole="Table" />
+  </EntityType>
+  <Association Name="TableTable">
+    <End Type="PersonModel.Table" Role="Table" Multiplicity="1" />
+    <End Type="PersonModel.Table" Role="Table1" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Table">
+        <PropertyRef Name="PersonID" />
+      </Principal>
+      <Dependent Role="Table1">
+        <PropertyRef Name="NextID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Table12">
+    <End Type="PersonModel.Table" Role="Table" Multiplicity="1" />
+    <End Type="PersonModel.Table" Role="Table1" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Table">
+        <PropertyRef Name="PersonID" />
+      </Principal>
+      <Dependent Role="Table1">
+        <PropertyRef Name="NextID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="PersonModelStoreContainer" CdmEntityContainer="PersonEntities">
+    <EntitySetMapping Name="Table">
+      <EntityTypeMapping TypeName="PersonModel.Table">
+        <MappingFragment StoreEntitySet="Table">
+          <ScalarProperty Name="IsHead" ColumnName="IsHead" />
+          <ScalarProperty Name="PrevID" ColumnName="PrevID" />
+          <ScalarProperty Name="NextID" ColumnName="NextID" />
+          <ScalarProperty Name="Height" ColumnName="Height" />
+          <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="PersonID" ColumnName="PersonID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
