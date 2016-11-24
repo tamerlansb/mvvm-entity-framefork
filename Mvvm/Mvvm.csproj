@@ -70,8 +70,6 @@
     </ApplicationDefinition>
     <Compile Include="Commands\CommandReference.cs" />
     <Compile Include="Commands\DelegateCommand.cs" />
-    <Compile Include="PersonContext.cs" />
-    <Compile Include="PersonDataBase.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\PersonViewModel.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
@@ -119,6 +117,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DataLayer\DataLayer.csproj">
+      <Project>{ee67a857-b105-4b12-9799-2d29dfb1b9ae}</Project>
+      <Name>DataLayer</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DoubledLinkedList\DoubledLinkedList Library.csproj">
       <Project>{757b2580-fc98-470f-9125-e657093977aa}</Project>
       <Name>DoubledLinkedList Library</Name>

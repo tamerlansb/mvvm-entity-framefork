@@ -1,0 +1,10 @@
+D:\Mvvm\DataLayer\obj\Debug\DataLayer.csprojResolveAssemblyReference.cache
+D:\Mvvm\DataLayer\bin\Debug\DataLayer.dll.config
+D:\Mvvm\DataLayer\bin\Debug\DataLayer.dll
+D:\Mvvm\DataLayer\bin\Debug\DataLayer.pdb
+D:\Mvvm\DataLayer\bin\Debug\EntityFramework.dll
+D:\Mvvm\DataLayer\bin\Debug\EntityFramework.SqlServer.dll
+D:\Mvvm\DataLayer\bin\Debug\EntityFramework.xml
+D:\Mvvm\DataLayer\bin\Debug\EntityFramework.SqlServer.xml
+D:\Mvvm\DataLayer\obj\Debug\DataLayer.dll
+D:\Mvvm\DataLayer\obj\Debug\DataLayer.pdb

@@ -34,3 +34,5 @@ D:\Mvvm\Mvvm\bin\Debug\EntityFramework.dll
 D:\Mvvm\Mvvm\bin\Debug\EntityFramework.SqlServer.dll
 D:\Mvvm\Mvvm\bin\Debug\EntityFramework.xml
 D:\Mvvm\Mvvm\bin\Debug\EntityFramework.SqlServer.xml
+D:\Mvvm\Mvvm\bin\Debug\DataLayer.dll
+D:\Mvvm\Mvvm\bin\Debug\DataLayer.pdb

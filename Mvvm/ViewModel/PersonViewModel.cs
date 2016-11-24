@@ -19,7 +19,7 @@ namespace Mvvm
         #endregion
 
         #region Constructors
-        public Person(string LastName, DateTime DateOfBirth, int Height)
+        public Person(string LastName = "", DateTime DateOfBirth = new DateTime(), int Height = 0)
         {
             this.dateofbirth = DateOfBirth;
             this.lastname = LastName;

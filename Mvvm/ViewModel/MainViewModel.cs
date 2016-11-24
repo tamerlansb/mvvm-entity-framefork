@@ -7,6 +7,7 @@ using DoubledLinkedList;
 using System.Windows.Input;
 using System.Data.SqlClient;
 using System.Windows;
+using DataLayer;
 
 namespace Mvvm
 {
@@ -15,17 +16,19 @@ namespace Mvvm
         #region Fields
         private DoubledLinkedList<Person> people;
         private Person newPerson, currPerson;
-        private PersonContext db = new PersonContext();
+        IRepository<PersonDataBase> db;
         #endregion
 
         #region Constructor
         public MainViewModel()
         {
             people = new DoubledLinkedList<Person>();
-            newPerson = new Person("Sidorov", new DateTime(1996, 01, 03), 179); this.AddPerson();
-            newPerson = new Person("Ivanov", new DateTime(1995, 03, 03), 170); this.AddPerson();
-            newPerson = new Person("Petrov", new DateTime(1996, 02, 03), 172); this.AddPerson();
-            newPerson = new Person("Sadovnichyi", new DateTime(1996, 12, 12), 178); this.AddPerson();
+            db = new Repository();
+            /* newPerson = new Person("Sidorov", new DateTime(1996, 01, 03), 179); this.AddPerson();
+             newPerson = new Person("Ivanov", new DateTime(1995, 03, 03), 170); this.AddPerson();
+             newPerson = new Person("Petrov", new DateTime(1996, 02, 03), 172); this.AddPerson();
+             newPerson = new Person("Sadovnichyi", new DateTime(1996, 12, 12), 178); this.AddPerson();*/
+            Download();
             newPerson = new Person("aaa", new DateTime(2001,01,01), 0);
         }
         #endregion
@@ -139,34 +142,13 @@ namespace Mvvm
         {
             if (CurrentPerson != null)
             {
-                int i  = people.RemoveByPredicate((Person x) => { return x == CurrentPerson; });
-                bool flag = i == 1;
-                 PersonDataBase delp = (from p in db.Persons
-                                        where p.IsHead == true
-                                        select p).FirstOrDefault();
-                --i;
-                while (i > 0)
+                int index  = people.RemoveByPredicate((Person x) => { return x == CurrentPerson; });
+                db.deleteByIndex(new PersonDataBase()
                 {
-                    delp = (from p in db.Persons
-                            where p.PrevID == delp.PersonID
-                            select p).FirstOrDefault();
-                    --i;
-                }
-                var next = (from p in db.Persons
-                            where p.PrevID == delp.PersonID
-                            select p).FirstOrDefault();
-                var prev = (from p in db.Persons
-                            where p.NextID == delp.PersonID
-                            select p).FirstOrDefault();
-                if (next != null)
-                    next.PrevID = prev != null ? (int?)prev.PersonID : null;
-                if (prev != null)
-                    prev.NextID = next != null ? (int?)next.PersonID : null;
-                if (flag)
-                    if (next != null)
-                        next.IsHead = true;
-                db.Persons.Remove(delp);
-                db.SaveChanges();
+                    LastName = currPerson.LastName,
+                    DateOfBirth = currPerson.DateOfBirth,
+                    Height = currPerson.Height,
+                }, index);
             }
             CurrentPerson = null;
         }
@@ -192,43 +174,12 @@ namespace Mvvm
         private void AddPersonByIndex()
         {
             people.AddByIndex(newPerson,IndexForAdd);
-            if (IndexForAdd==1)
+            db.addByIndex(new PersonDataBase()
             {
-                var head = (from p in db.Persons
-                             where p.IsHead == true
-                             select p).FirstOrDefault();
-                db.Persons.Add(new PersonDataBase(newPerson, true, null,head.PersonID));
-                db.SaveChanges();
-                var NowAddedPersonID = (from person in db.Persons
-                                        where person.NextID == head.PersonID
-                                        select person.PersonID).First();
-                head.PrevID = NowAddedPersonID;
-                head.IsHead = false;
-                db.SaveChanges();
-            }
-            else
-            {
-                var curr = (from p in db.Persons
-                           where p.IsHead == true
-                           select p).FirstOrDefault();
-                for (int i = 1; i< IndexForAdd;++i)
-                {
-                    curr = (from p in db.Persons
-                          where p.PrevID == curr.PersonID
-                          select p).FirstOrDefault();
-                }
-                var prev = (from p in db.Persons
-                              where p.NextID == curr.PersonID
-                              select p).FirstOrDefault();
-                db.Persons.Add(new PersonDataBase(newPerson, false, prev.PersonID,curr.PersonID));
-                db.SaveChanges();
-                var NowAddedPersonID = (from person in db.Persons
-                                        where person.NextID == curr.PersonID && person.PrevID == prev.PersonID
-                                        select person.PersonID).First();
-                curr.PrevID = NowAddedPersonID;
-                prev.NextID = NowAddedPersonID;
-                 db.SaveChanges();
-            }
+                LastName = newPerson.LastName,
+                DateOfBirth = newPerson.DateOfBirth,
+                Height = newPerson.Height,
+            }, (int)IndexForAdd);
             NewPerson = new Person("", new DateTime(2001,01,01), 0);
         }
         private bool CanExecuteAddByIndex()
@@ -253,24 +204,12 @@ namespace Mvvm
         private void AddPerson()
         {
             people.Add(newPerson);
-            if (db.Persons.Count()==0)
+            db.add(new PersonDataBase()
             {
-                db.Persons.Add(new PersonDataBase( newPerson, true));
-                db.SaveChanges();
-            }
-            else
-            {
-                var LastPerson = (from person in db.Persons
-                                    where person.NextID == null
-                                    select person).First();
-                db.Persons.Add(new PersonDataBase(newPerson, false,LastPerson.PersonID, null));
-                db.SaveChanges();
-                var NowAddedPersonID = (from person in db.Persons
-                                        where person.PrevID == LastPerson.PersonID
-                                        select person).First();
-                LastPerson.NextID = NowAddedPersonID.PersonID;
-                db.SaveChanges();
-            }
+                LastName = newPerson.LastName,
+                DateOfBirth = newPerson.DateOfBirth,
+                Height = newPerson.Height,
+            });
             NewPerson = new Person("", new DateTime(2001, 01, 01), 0);    
         }
         private bool CanExecuteAdd()
@@ -281,6 +220,17 @@ namespace Mvvm
         }
         #endregion
 
+        #region
+        private void Download()
+        {
+            foreach (var p in db.GetPersonList())
+                people.Add(new Person() {
+                LastName = p.LastName,
+                DateOfBirth = p.DateOfBirth,
+                Height = p.Height
+                });
+        }
+        #endregion
         #endregion
     }
 }
